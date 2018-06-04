@@ -5,12 +5,15 @@ import './App.css';
 import axios from 'axios';
 import PanelAgregar from "./PanelAgregar";
 import PanelHistorial from "./PanelHistorial";
+import {Tabs, Tab} from "react-bootstrap";
+import ModuloConsultas from "./ModuloConsultas";
 
 class App extends Component {
     constructor(props){
         super(props);
-        this.state = { ciclos: [], ciclo:{} }
-        this.cambioCiclo = this.cambioCiclo.bind(this)
+        //this.state = { ciclos: [], ciclo:{} }
+        this.state = { ciclos: []}
+        //this.cambioCiclo = this.cambioCiclo.bind(this)
     }
 
     componentDidMount(){
@@ -19,18 +22,19 @@ class App extends Component {
             console.log(ciclos)
             this.setState({ciclos:ciclos})
         })
-
+        /*
         axios.post('https://apidisponibilidad.herokuapp.com/curso/nuevociclo', {ciclo})
             .then(res => {
                 console.log(res);
                 console.log(res.data);
         })
+        */
     }
-
+    /*
     cambioCiclo = nuevoCiclo => {
         this.setState({ ciclo: nuevoCiclo });
     }
-
+    */
 
   render() {
 
@@ -39,22 +43,30 @@ class App extends Component {
           ((ciclos.length>0)?<div>
               <div className="App">
                   <header className="App-header">
-                      <h1 className="App-title">Apertura del Semestre Academico</h1>
-                      <h2>{ciclos[0].nom_ciclo}</h2>
+                      <h1 className="App-title">Módulo Secretaria</h1>
                   </header>
 
                   <Grid>
-                      <br/>
-                      <br/>
-                      <Row>
-                          <Col md={12}>
-                              <PanelAgregar cambioCiclo={cambioCiclo}/>
-                              <br/>
-                              <br/>
-                              <PanelHistorial ciclos={ciclos}/>
+                      <Col md={12}>
+                          <Tabs dfaultKey={1} id="uncontrolled-tab-example">
+                              <Tab eventKey={1} title="Apertura de Ciclo">
+                                  <br/>
+                                  <br/>
+                                  <Row>
+                                      <Col md={12}>
+                                          <PanelAgregar/>
+                                          <br/>
+                                          <br/>
+                                          <PanelHistorial ciclos={ciclos}/>
+                                      </Col>
+                                  </Row>
+                              </Tab>
+                              <Tab eventKey={2} title="Módulo de Consultas">
+                                  <ModuloConsultas/>
+                              </Tab>
 
-                          </Col>
-                      </Row>
+                          </Tabs>
+                      </Col>
 
                   </Grid>
               </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
 import {Table} from 'react-bootstrap';
-import {Panel} from 'react-bootstrap';
+import {Panel, FormControl} from 'react-bootstrap';
 
 const PanelHistorial = ({ciclos})=>
 
