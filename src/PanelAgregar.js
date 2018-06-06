@@ -16,6 +16,11 @@ class PanelAgregar extends Component{
     constructor(props){
         super(props);
         this.state = {
+            newCiclo: {
+                nombre: '',
+                fecha_inicio: '',
+                fecha_fin: ''
+            },
             fecha_inicio:moment()
         };
         this.handleChangeFechaInicio = this.handleChangeFechaInicio.bind(this)
@@ -24,25 +29,20 @@ class PanelAgregar extends Component{
 
     addNewCiclo(e){
         e.preventDefault();
-        var ciclo={
-            nombre:this.nombre.value,
-
-            fecha_fin:this.fecha_fin.value,
-
-        }
-        console.log(ciclo);
-        console.log(this.date);
+        console.log(this.state.newCiclo);
     }
 
     handleChangeFechaInicio(date){
-        var nueva_fecha_inicio = date;
-        this.setState({fecha_inicio:nueva_fecha_inicio});
-
-        console.log("Conecta");
+        this.setState(prevState=>{
+            let nCiclo = prevState.newCiclo;
+            nCiclo['fecha_inicio'] = date;
+            return {newCiclo:nCiclo};
+        })
     }
 
 
     render(){
+        const {handleChangeFechaInicio} = this;
         return(
             <Panel bsStyle="primary">
                 <Panel.Heading>
@@ -67,7 +67,7 @@ class PanelAgregar extends Component{
                                     <DatePickerCustom
                                         //startDate={this.state.fecha_inicio}
                                         //startDate={this.state.fecha_inicio} handleChange={this.state.handleChangeFechaInicio}
-                                        startDate={() => this.state.fecha_inicio()} handleChange={this.state.handleChangeFechaInicio}
+                                        startDate={() => this.state.fecha_inicio()} handleChange={handleChangeFechaInicio}
                                     />
                                 </FormGroup>
 

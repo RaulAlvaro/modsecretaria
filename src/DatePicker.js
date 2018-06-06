@@ -23,7 +23,7 @@ class DatePickerCustom extends Component {
             startDate: date
         });
         console.log(date.format("DD-MM-YYYY"));
-        //this.props.handleChangeFechaInicio(date);
+        this.props.handleChange(valueOfInput);
     }
 
     render() {
