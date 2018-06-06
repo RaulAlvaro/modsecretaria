@@ -18,11 +18,12 @@ class DatePickerCustom extends Component {
     }
 
     handleChange(date) {
+        const valueOfInput = date.format("DD-MM-YYYY");
         this.setState({
             startDate: date
         });
         console.log(date.format("DD-MM-YYYY"));
-        this.props.handleChangeFechaInicio(date);
+        //this.props.handleChangeFechaInicio(date);
     }
 
     render() {
@@ -33,5 +34,5 @@ class DatePickerCustom extends Component {
         />;
     }
 }
-
 export default DatePickerCustom
+

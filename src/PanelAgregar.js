@@ -11,6 +11,7 @@ import moment from 'moment';
 /*const PanelAgregar = ({cambioCiclo = f=>f,cambionombre = f=>f, cambiofechainicio= f=>f,
                        cambiofechafin = f=>f, cambioestado= f=>f})=>*/
 
+
 class PanelAgregar extends Component{
     constructor(props){
         super(props);
@@ -64,9 +65,9 @@ class PanelAgregar extends Component{
                                 <FormGroup>
                                     <ControlLabel>Fecha Inicio</ControlLabel>
                                     <DatePickerCustom
-                                        startDate={this.state.fecha_inicio}
+                                        //startDate={this.state.fecha_inicio}
                                         //startDate={this.state.fecha_inicio} handleChange={this.state.handleChangeFechaInicio}
-                                        //startDate={() => this.state.fecha_inicio()} handleChange={this.state.handleChangeFechaInicio}
+                                        startDate={() => this.state.fecha_inicio()} handleChange={this.state.handleChangeFechaInicio}
                                     />
                                 </FormGroup>
 

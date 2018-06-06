@@ -7,15 +7,18 @@ import PanelAgregar from "./PanelAgregar";
 import PanelHistorial from "./PanelHistorial";
 import {Tabs, Tab} from "react-bootstrap";
 import ModuloConsultas from "./ModuloConsultas";
+import  data from "./data";
 
 class App extends Component {
     constructor(props){
         super(props);
         //this.state = { ciclos: [], ciclo:{} }
-        this.state = { ciclos: []}
+        this.state = { ciclos: data}
+
+
         //this.cambioCiclo = this.cambioCiclo.bind(this)
     }
-
+    /*
     componentDidMount(){
         axios.get('https://apidisponibilidad.herokuapp.com/curso/ciclos').then(res=>{
             const ciclos=res.data
@@ -28,8 +31,8 @@ class App extends Component {
                 console.log(res);
                 console.log(res.data);
         })
-        */
-    }
+
+    }*/
     /*
     cambioCiclo = nuevoCiclo => {
         this.setState({ ciclo: nuevoCiclo });
@@ -38,8 +41,9 @@ class App extends Component {
 
   render() {
 
-    const ciclos = this.state.ciclos;
-      return (
+    const ciclos = this.state.ciclos.ciclos;
+    console.log(ciclos);
+    return (
           ((ciclos.length>0)?<div>
               <div className="App">
                   <header className="App-header">
