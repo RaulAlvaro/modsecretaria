@@ -12,37 +12,52 @@ import  data from "./data";
 class App extends Component {
     constructor(props){
         super(props);
-        //this.state = { ciclos: [], ciclo:{} }
-        this.state = { ciclos: data}
+        this.state = { ciclos: [], ciclo:{} }
+        //this.state = { ciclos: data}
 
 
         //this.cambioCiclo = this.cambioCiclo.bind(this)
     }
-    /*
+
     componentDidMount(){
+
         axios.get('https://apidisponibilidad.herokuapp.com/curso/ciclos').then(res=>{
             const ciclos=res.data
             console.log(ciclos)
             this.setState({ciclos:ciclos})
         })
+
         /*
         axios.post('https://apidisponibilidad.herokuapp.com/curso/nuevociclo', {ciclo})
             .then(res => {
                 console.log(res);
                 console.log(res.data);
         })
+        */
+    }
 
-    }*/
     /*
     cambioCiclo = nuevoCiclo => {
         this.setState({ ciclo: nuevoCiclo });
     }
     */
 
+
+    guardarCiclo=(ciclo)=>{
+        axios.post('https://apidisponibilidad.herokuapp.com/curso/nuevociclo', {ciclo})
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+        })
+    }
+
+
+
   render() {
 
-    const ciclos = this.state.ciclos.ciclos;
-    console.log(ciclos);
+    const ciclos = this.state.ciclos;
+
+
     return (
           ((ciclos.length>0)?<div>
               <div className="App">
@@ -58,7 +73,7 @@ class App extends Component {
                                   <br/>
                                   <Row>
                                       <Col md={12}>
-                                          <PanelAgregar/>
+                                          <PanelAgregar guardarCiclo={this.guardarCiclo}/>
                                           <br/>
                                           <br/>
                                           <PanelHistorial ciclos={ciclos}/>

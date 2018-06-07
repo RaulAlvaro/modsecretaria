@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-//import DatePicker from 'react-datepicker';
 import {Panel} from 'react-bootstrap';
 import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Grid, Col, Row} from 'react-bootstrap';
 import DatePickerCustom from './DatePicker';
 import moment from 'moment';
-
-
-/*const PanelAgregar = ({cambioCiclo = f=>f,cambionombre = f=>f, cambiofechainicio= f=>f,
-                       cambiofechafin = f=>f, cambioestado= f=>f})=>*/
-
 
 class PanelAgregar extends Component{
     constructor(props){
@@ -21,15 +15,36 @@ class PanelAgregar extends Component{
                 fecha_inicio: '',
                 fecha_fin: ''
             },
-            fecha_inicio:moment()
+            nombre: '',
+            fecha_inicio:moment(),
+            fecha_fin:moment()
         };
-        this.handleChangeFechaInicio = this.handleChangeFechaInicio.bind(this)
+        this.handleChangeFechaInicio = this.handleChangeFechaInicio.bind(this),
+        this.handleChangeFechaFin = this.handleChangeFechaFin.bind(this),
+        this.handleChangeNombre = this.handleChangeNombre.bind(this)
+    }
 
+    functionFechaFix(fecha){
+        let fechanew="";
+        fechanew = fecha.split("-");
+        fecha = fechanew[2] + "-" + fechanew[1] + "-" + fechanew[0];
+        return fecha
     }
 
     addNewCiclo(e){
         e.preventDefault();
-        console.log(this.state.newCiclo);
+        /*console.log(this.state.newCiclo);*/
+        var ciclo={
+            nom_ciclo :this.state.nombre,
+            fecha_inicio:this.state.newCiclo.fecha_inicio,
+            fecha_fin:this.state.newCiclo.fecha_fin,
+            //fecha_inicio : this.functionFechaFix(this.state.newCiclo.fecha_inicio),
+            //fecha_fin:this.functionFechaFix(this.state.newCiclo.fecha_fin),
+            estado:true
+        }
+        console.log(ciclo);
+        this.props.guardarCiclo(ciclo)
+
     }
 
     handleChangeFechaInicio(date){
@@ -40,9 +55,25 @@ class PanelAgregar extends Component{
         })
     }
 
+    handleChangeFechaFin(date){
+        this.setState(prevState=>{
+            let nCiclo = prevState.newCiclo;
+            nCiclo['fecha_fin'] = date;
+            return {newCiclo:nCiclo}
+        })
+    }
+
+    handleChangeNombre(e){
+        this.setState({
+            nombre : e.target.value
+        });
+        console.log(this.state.nombre);
+    }
 
     render(){
         const {handleChangeFechaInicio} = this;
+        const {handleChangeFechaFin} = this;
+        const {handleChangeNombre}=this;
         return(
             <Panel bsStyle="primary">
                 <Panel.Heading>
@@ -55,18 +86,16 @@ class PanelAgregar extends Component{
                                 <FormGroup>
                                     <ControlLabel>Nombre del Ciclo</ControlLabel>
                                     <FormControl
-                                        name="nombre"
+                                        value={this.state.nombre}
                                         type="text"
                                         placeholder="Enter text"
-                                        inputRef={(input) => this.nombre = input}/>
+                                        onChange = {this.handleChangeNombre}/>
                                 </FormGroup>
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
                                     <ControlLabel>Fecha Inicio</ControlLabel>
                                     <DatePickerCustom
-                                        //startDate={this.state.fecha_inicio}
-                                        //startDate={this.state.fecha_inicio} handleChange={this.state.handleChangeFechaInicio}
                                         startDate={() => this.state.fecha_inicio()} handleChange={handleChangeFechaInicio}
                                     />
                                 </FormGroup>
@@ -76,7 +105,7 @@ class PanelAgregar extends Component{
                                 <FormGroup>
                                     <ControlLabel>Fecha Fin</ControlLabel>
                                     <DatePickerCustom
-                                        ref={(input) => this.fecha_fin = input}
+                                        startDate={() => this.state.fecha_fin()} handleChange={handleChangeFechaFin}
                                     />
                                 </FormGroup>
 
@@ -91,7 +120,5 @@ class PanelAgregar extends Component{
         )
     }
 }
-
-
 
 export default PanelAgregar
